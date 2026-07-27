@@ -107,14 +107,12 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun initApi() {
-        val apiURL = WKSharedPreferencesUtil.getInstance().getSP("api_base_url")
+        var apiURL = WKSharedPreferencesUtil.getInstance().getSP("api_base_url")
         if (TextUtils.isEmpty(apiURL)) {
-//            apiURL = ""
-//            WKApiConfig.initBaseURL(apiURL)
-            throw IllegalStateException("api_base_url 未设置，请先配置接口地址")
-        } else {
-            WKApiConfig.initBaseURLIncludeIP(apiURL)
+            apiURL = "http://wuyike.top:8090"
+            WKSharedPreferencesUtil.getInstance().putSP("api_base_url", apiURL)
         }
+        WKApiConfig.initBaseURLIncludeIP(apiURL)
     }
 
     private fun getAppPackageName(): String {
